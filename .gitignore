@@ -54,3 +54,7 @@ benchmarks/figures/*.svg
 
 # Claude Code workspace
 .claude/
+
+# Windows screenshots dumped in project root
+Screenshot*.png
+publish_to_github.ps1

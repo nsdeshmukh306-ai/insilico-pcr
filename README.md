@@ -201,7 +201,35 @@ The dashboard provides a complete analysis environment in the browser — no cod
 | **Live Parameters** | Sliders for mismatches, [Na⁺], [Mg²⁺] — re-runs instantly, no page reload |
 | **Export** | JSON / CSV / HTML report download |
 
-> **Screenshot note:** Run `python insilico_pcr/webapp/run.py`, load the demo, and take screenshots to populate `assets/screenshots/`. See [assets/screenshots/README.md](assets/screenshots/README.md) for naming conventions and recommended dimensions.
+### Dashboard walkthrough
+
+**1 — Analysis setup:** Enter primer sequences, paste or upload a genome FASTA, and configure PCR parameters (mismatches, salt concentrations, amplicon size). Hit *Run analysis* — results appear in under 150 ms on the demo dataset.
+
+![Analysis setup and summary stats](assets/screenshots/dashboard_overview.png)
+
+---
+
+**2 — Amplicons & Alignment:** Every primer pair gets a ranked amplicon table with position, length, GC%, and a composite score. Click any row to open the nucleotide alignment viewer — mismatches highlighted in green, Smith–Waterman score and strand shown inline.
+
+![Amplicons table and nucleotide alignment viewer](assets/screenshots/alignment_viewer.png)
+
+---
+
+**3 — Thermodynamics:** Per-binding-site Tm and ΔG₃₇ computed from the SantaLucia 1998 NN model with Owczarzy Mg²⁺ correction. The primer quality radar shows GC content, Tm, length, clamp, and ΔG for forward and reverse primers side by side.
+
+![Tm comparison and primer quality radar](assets/screenshots/thermodynamics_panel.png)
+
+---
+
+**4 — Off-target Explorer:** All binding sites outside the intended amplicon are enumerated, classified by risk, and scored. The specificity index gives a single number (0–100) summarising how selective the primer pair is across the genome.
+
+![Off-target hits and score distribution](assets/screenshots/offtarget_explorer.png)
+
+---
+
+**5 — Genome Overview:** Amplicon positions plotted on a linear genome track, with a length distribution histogram and a GC% scatter — useful for checking whether amplicons cluster or spread across the sequence.
+
+![Amplicon positions on genome and length distribution](assets/screenshots/genome_track.png)
 
 ---
 
