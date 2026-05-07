@@ -233,7 +233,7 @@ The dashboard provides a complete analysis environment in the browser — no cod
 
 ---
 
-## ⚙️ How It Works
+##  How It Works
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -298,7 +298,7 @@ Full module breakdown: [docs/architecture.md](docs/architecture.md)
 
 ---
 
-## 📐 Example Output
+##  Example Output
 
 ### Amplicon JSON
 
@@ -348,7 +348,7 @@ Mismatches are highlighted in red in the dashboard alignment viewer.
 
 ---
 
-## 🔬 Scientific Foundations
+##  Scientific Foundations
 
 This platform is built on peer-reviewed thermodynamic models.
 
@@ -372,7 +372,7 @@ A critical implementation detail: this codebase uses the **parallel complement c
 
 ---
 
-## 📊 Benchmarks
+##  Benchmarks
 
 ### Runtime (10 kbp genome, Python 3.13, modern laptop CPU)
 
@@ -438,7 +438,7 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ---
 
-## 📚 Citation
+##  Citation
 
 If this platform is used in published research, please cite the underlying thermodynamic models:
 
