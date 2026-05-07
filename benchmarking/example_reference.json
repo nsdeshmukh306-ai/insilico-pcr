@@ -1,0 +1,34 @@
+{
+  "reference_tool": "ground_truth_synthetic",
+  "genome": "example_genome.fa",
+  "pairs": [
+    {
+      "name": "ACTB_exon5",
+      "fwd": "GCACTGGTGGCATCGATCTA",
+      "rev": "TAGCTAGCATGCTAGCTAGC",
+      "amplicons": [
+        {
+          "seq_id": "chr1",
+          "start": 500,
+          "end": 920,
+          "tm_fwd": 58.5,
+          "tm_rev": 52.0
+        }
+      ]
+    },
+    {
+      "name": "GAPDH_qPCR",
+      "fwd": "GTCTCCTCTGACTTCAACAGCG",
+      "rev": "ACCACCCTGTTGCTGTAGCCAA",
+      "amplicons": [
+        {
+          "seq_id": "chr2",
+          "start": 200,
+          "end": 522,
+          "tm_fwd": 63.0,
+          "tm_rev": 64.0
+        }
+      ]
+    }
+  ]
+}

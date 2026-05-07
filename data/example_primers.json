@@ -1,0 +1,12 @@
+[
+  {
+    "name": "ACTB_exon5",
+    "forward": "GCACTGGTGGCATCGATCTA",
+    "reverse": "TAGCTAGCATGCTAGCTAGC"
+  },
+  {
+    "name": "GAPDH_qPCR",
+    "forward": "GTCTCCTCTGACTTCAACAGCG",
+    "reverse": "ACCACCCTGTTGCTGTAGCCAA"
+  }
+]

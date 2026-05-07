@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "date": "2026-05-07",
+    "platform": "Linux 5.15 / Python 3.13",
+    "genome": "10 kbp synthetic (example_genome.fa)",
+    "pairs_tested": 2
+  },
+  "runtime": {
+    "kmer_index_build_ms": 0.4,
+    "per_primer_binding_search_ms": 8.2,
+    "full_pair_analysis_ms": 63,
+    "demo_load_ms": 117
+  },
+  "accuracy": {
+    "tm_validation": {
+      "source": "SantaLucia 1998 Table 2",
+      "samples": 5,
+      "mean_absolute_error_celsius": 0.26,
+      "max_error_celsius": 0.3
+    },
+    "mismatch_tm": {
+      "source": "Peyret 1999 supplementary",
+      "samples": 3,
+      "mean_absolute_error_celsius": 0.2
+    },
+    "mg_correction": {
+      "source": "Owczarzy 2008 Table 1",
+      "samples": 3,
+      "mean_absolute_error_celsius": 0.27
+    }
+  },
+  "pipeline_metrics": {
+    "sensitivity": 1.0,
+    "specificity": 0.92,
+    "position_accuracy": 1.0
+  }
+}

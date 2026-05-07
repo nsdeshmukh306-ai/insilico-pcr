@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.installed.cfg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Project-specific
+graphify-out/
+demo_result.json
+webapp/demo_result.json
+results/*.json
+results/*.txt
+*.log
+
+# Large data files — commit only the small example dataset
+data/*.fa
+data/*.fasta
+!data/example_genome.fa
+benchmarks/figures/*.png
+benchmarks/figures/*.svg
+
+# Secrets
+.env
+*.pem
+*.key
+
+# Claude Code workspace
+.claude/

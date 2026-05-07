@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In-Silico PCR Dashboard</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Plotly.js (served locally) -->
+  <script src="/static/js/plotly.min.js"></script>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ═══════════════════════════════════════════════════ Header ══ -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <!-- DNA helix icon -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3c3 0 6 2 9 2s6-2 9-2"/>
+          <path d="M3 21c3 0 6-2 9-2s6 2 9 2"/>
+          <path d="M3 9c3 1.5 6 1.5 9 0s6-1.5 9 0"/>
+          <path d="M3 15c3-1.5 6-1.5 9 0s6 1.5 9 0"/>
+          <line x1="3" y1="3" x2="3" y2="21"/><line x1="21" y1="3" x2="21" y2="21"/>
+        </svg>
+        <div>
+          <div class="header-title">In-Silico PCR</div>
+          <div class="header-subtitle">Publication-grade analysis dashboard</div>
+        </div>
+      </div>
+
+      <div class="header-spacer"></div>
+
+      <div class="header-actions">
+        <div id="status-bar"></div>
+        <a href="https://github.com/" class="btn btn-ghost btn-sm" title="GitHub" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.05.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════ Main ══ -->
+  <main class="app-main">
+
+    <!-- ── 1. Run Panel ──────────────────────────────────────── -->
+    <div class="run-panel">
+      <div class="run-panel-header">
+        <div>
+          <div class="run-panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Analysis setup
+          </div>
+          <div class="run-panel-subtitle">Enter primers and genome sequence, or load the demo dataset</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn btn-demo" id="btn-demo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+            Load demo
+          </button>
+          <button class="btn btn-run" id="btn-run">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Run analysis
+          </button>
+        </div>
+      </div>
+
+      <div class="run-panel-body">
+        <!-- Left: Primers + genome -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="form-group">
+            <label class="form-label">Pair name</label>
+            <input id="pair-name" class="form-input" value="ACTB_exon5" placeholder="e.g. ACTB_exon5">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Forward primer (5'→3')</label>
+            <input id="fwd-primer" class="form-input" placeholder="GCACTGGTGGCATCGATCTA" value="GCACTGGTGGCATCGATCTA">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reverse primer (5'→3')</label>
+            <input id="rev-primer" class="form-input" placeholder="TAGCTAGCATGCTAGCTAGC" value="TAGCTAGCATGCTAGCTAGC">
+          </div>
+
+          <!-- Genome source toggle -->
+          <div>
+            <div class="form-label" style="margin-bottom:8px">Genome source</div>
+            <div style="display:flex;gap:18px;margin-bottom:10px">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.82rem">
+                <input type="radio" name="genome-src" value="string" checked> Paste sequence
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:.82rem">
+                <input type="radio" name="genome-src" value="fasta"> Upload FASTA
+              </label>
+            </div>
+            <div id="genome-string-wrap">
+              <textarea id="genome-string-input" class="form-textarea" rows="4"
+                placeholder="Paste FASTA or raw nucleotide sequence here…"></textarea>
+            </div>
+            <div id="genome-fasta-wrap" class="hidden">
+              <input type="file" id="genome-fasta-file" accept=".fa,.fasta,.fna,.txt"
+                class="form-input" style="font-family:var(--font-sans)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Parameters -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="section-header">Analysis parameters</div>
+
+          <div class="param-grid">
+            <div class="form-group">
+              <label class="form-label">Max mismatches</label>
+              <input id="param-max-mm" type="number" class="form-input" value="3" min="0" max="6">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Min amplicon (bp)</label>
+              <input id="param-min-amp" type="number" class="form-input" value="50" min="10">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max amplicon (bp)</label>
+              <input id="param-max-amp" type="number" class="form-input" value="3000" min="50">
+            </div>
+            <div class="form-group">
+              <label class="form-label">[Na⁺] (mM)</label>
+              <input id="param-na" type="number" class="form-input" value="50" min="0" step="5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">[Mg²⁺] (mM)</label>
+              <input id="param-mg" type="number" class="form-input" value="0" min="0" step="0.5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">[dNTP] (mM)</label>
+              <input id="param-dntp" type="number" class="form-input" value="0" min="0" step="0.25">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Primer conc (nM)</label>
+              <input id="param-primer-c" type="number" class="form-input" value="250" min="1">
+            </div>
+          </div>
+
+          <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.82rem">
+              <input type="checkbox" id="param-3p-strict" checked>
+              3' strict mode
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.82rem">
+              <input type="checkbox" id="param-hairpin">
+              Hairpin analysis
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.82rem">
+              <input type="checkbox" id="param-dimer">
+              Primer dimer (ΔG)
+            </label>
+          </div>
+
+          <div class="info-box mt-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Tm uses SantaLucia 1998 NN model with Peyret/Allawi mismatch tables.
+            Mg²⁺ correction follows Owczarzy 2008 (regime switching).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════ Results (hidden until loaded) ══ -->
+    <div id="results-section">
+
+      <!-- ── 2. Summary stats row ──────────────────────────── -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Primer pairs</div>
+          <div class="stat-value" id="stat-pairs">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Amplicons found</div>
+          <div class="stat-value" id="stat-amps">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Off-target hits</div>
+          <div class="stat-value" id="stat-offtarget">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Top score</div>
+          <div class="stat-value" id="stat-top-score">—</div>
+          <div class="stat-sub">out of 100</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Run time</div>
+          <div class="stat-value" id="stat-elapsed">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pipeline</div>
+          <div class="stat-value" style="font-size:1rem" id="stat-version">—</div>
+        </div>
+      </div>
+
+      <!-- ── Pair selector tabs ─────────────────────────────── -->
+      <div id="pair-tabs" class="pair-tabs"></div>
+
+      <!-- ── Main tab navigation ────────────────────────────── -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab-group="main" data-tab="amplicons">
+          Amplicons &amp; Alignment
+        </button>
+        <button class="tab-btn" data-tab-group="main" data-tab="thermo">
+          Thermodynamics
+        </button>
+        <button class="tab-btn" data-tab-group="main" data-tab="offtarget">
+          Off-target Explorer
+        </button>
+        <button class="tab-btn" data-tab-group="main" data-tab="primers">
+          Primer Quality
+        </button>
+        <button class="tab-btn" data-tab-group="main" data-tab="overview">
+          Genome Overview
+        </button>
+        <button class="tab-btn" data-tab-group="main" data-tab="live">
+          Live Parameters
+        </button>
+        <button class="tab-btn" data-tab-group="main" data-tab="export">
+          Export
+        </button>
+      </div>
+
+      <!-- ══════ TAB: Amplicons & Alignment ══════════════════ -->
+      <div class="tab-pane active" data-tab-group="main" data-tab="amplicons">
+        <div style="display:flex;flex-direction:column;gap:20px">
+
+          <!-- Amplicon table -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+                </svg>
+                Amplicon results
+              </div>
+              <span class="text-xs text-muted">Click a row to inspect alignment</span>
+            </div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Sequence</th>
+                    <th>Position</th>
+                    <th>Length</th>
+                    <th>GC%</th>
+                    <th>Score</th>
+                    <th>Fwd</th>
+                    <th>Rev</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody id="amplicon-table-body">
+                  <tr><td colspan="9" class="text-center text-muted" style="padding:20px">Load results to see amplicons</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Score breakdown + Alignment -->
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                  Score breakdown
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="score-breakdown-plot" class="plot-container" style="min-height:220px">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                  </svg>
+                  Nucleotide alignment
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="alignment-viewer-content">
+                  <div class="empty-state"><div class="empty-state-title">Select an amplicon row</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════ TAB: Thermodynamics ══════════════════════════ -->
+      <div class="tab-pane" data-tab-group="main" data-tab="thermo">
+        <div style="display:flex;flex-direction:column;gap:20px">
+
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Tm comparison</div>
+              </div>
+              <div class="card-body">
+                <div id="tm-comparison-plot" class="plot-container" style="min-height:220px">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><div class="card-title">Primer quality radar</div></div>
+              <div class="card-body">
+                <div id="primer-radar-plot" class="plot-container" style="min-height:260px">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+                Binding site thermodynamics
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="thermo-deepdive">
+                <div class="empty-state"><div class="empty-state-title">Select a primer pair and amplicon</div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════ TAB: Off-target Explorer ═════════════════════ -->
+      <div class="tab-pane" data-tab-group="main" data-tab="offtarget">
+        <div style="display:flex;flex-direction:column;gap:20px">
+
+          <!-- Summary stats -->
+          <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+            <div class="stat-card">
+              <div class="stat-label">Off-target amplicons</div>
+              <div class="stat-value" id="ot-total">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">High-risk</div>
+              <div class="stat-value" id="ot-high">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Specificity index</div>
+              <div class="stat-value" id="ot-spec">—</div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header"><div class="card-title">Off-target hits</div></div>
+              <div class="card-body">
+                <div id="offtarget-list" class="offtarget-list">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><div class="card-title">Score distribution</div></div>
+              <div class="card-body">
+                <div id="offtarget-plot" class="plot-container" style="min-height:190px">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════ TAB: Primer Quality ══════════════════════════ -->
+      <div class="tab-pane" data-tab-group="main" data-tab="primers">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Primer properties</div></div>
+            <div class="card-body">
+              <div id="primer-quality-content">
+                <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ TAB: Genome Overview ═════════════════════════ -->
+      <div class="tab-pane" data-tab-group="main" data-tab="overview">
+        <div style="display:flex;flex-direction:column;gap:20px">
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Amplicon positions on genome</div></div>
+            <div class="card-body">
+              <div id="genome-track-plot" class="plot-container" style="min-height:200px">
+                <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="card">
+              <div class="card-header"><div class="card-title">Amplicon length distribution</div></div>
+              <div class="card-body">
+                <div id="amp-length-plot" class="plot-container" style="min-height:200px">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><div class="card-title">Length vs GC content</div></div>
+              <div class="card-body">
+                <div id="gc-scatter-plot" class="plot-container" style="min-height:220px">
+                  <div class="empty-state"><div class="empty-state-title">Run analysis to view</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════ TAB: Live Parameters ═════════════════════════ -->
+      <div class="tab-pane" data-tab-group="main" data-tab="live">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+              </svg>
+              Live parameter experiment
+            </div>
+            <span class="text-xs text-muted">Adjust and re-run without leaving the page</span>
+          </div>
+          <div class="card-body">
+            <div class="live-param-layout">
+              <!-- Controls -->
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div class="form-group">
+                  <label class="form-label">Pair name</label>
+                  <input id="live-pair-name" class="form-input" value="live_pair">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Forward primer</label>
+                  <input id="live-fwd" class="form-input" placeholder="Forward sequence">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Reverse primer</label>
+                  <input id="live-rev" class="form-input" placeholder="Reverse sequence">
+                </div>
+
+                <div class="range-group">
+                  <div class="range-header">
+                    <span class="range-label">Max mismatches</span>
+                    <span class="range-value" id="live-mm-slider-val">3</span>
+                  </div>
+                  <input type="range" class="live-slider" id="live-mm-slider"
+                    min="0" max="6" value="3" step="1">
+                </div>
+
+                <div class="range-group">
+                  <div class="range-header">
+                    <span class="range-label">[Na⁺] (mM)</span>
+                    <span class="range-value" id="live-na-slider-val">50</span>
+                  </div>
+                  <input type="range" class="live-slider" id="live-na-slider"
+                    min="10" max="200" value="50" step="5">
+                </div>
+
+                <div class="range-group">
+                  <div class="range-header">
+                    <span class="range-label">[Mg²⁺] (mM)</span>
+                    <span class="range-value" id="live-mg-slider-val">0</span>
+                  </div>
+                  <input type="range" class="live-slider" id="live-mg-slider"
+                    min="0" max="10" value="0" step="0.5">
+                </div>
+
+                <button class="btn btn-primary" id="btn-live-run" style="margin-top:4px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                  Re-run with these params
+                </button>
+
+                <div id="live-result-summary"></div>
+              </div>
+
+              <!-- Result display -->
+              <div>
+                <div class="info-box mb-3">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                  The live panel re-runs the pipeline with your current genome sequence.
+                  Results appear here and do not overwrite the main analysis.
+                </div>
+                <div id="live-sweep-plot" class="plot-container" style="min-height:230px">
+                  <div class="empty-state">
+                    <div class="empty-state-title">Adjust parameters and click "Re-run"</div>
+                    <div class="empty-state-sub">Results will appear here</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ TAB: Export ═══════════════════════════════════ -->
+      <div class="tab-pane" data-tab-group="main" data-tab="export">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Export results</div></div>
+          <div class="card-body">
+            <div class="export-row">
+              <button class="btn btn-outline" id="btn-export-json">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download JSON
+              </button>
+              <button class="btn btn-outline" id="btn-export-csv">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download CSV
+              </button>
+              <button class="btn btn-outline" id="btn-export-html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+                Download HTML report
+              </button>
+            </div>
+
+            <div class="mt-4">
+              <div class="section-header">Result JSON preview</div>
+              <pre id="json-preview" style="
+                background:var(--gray-50);
+                border:1px solid var(--gray-200);
+                border-radius:var(--radius);
+                padding:14px;
+                font-size:.72rem;
+                font-family:var(--font-mono);
+                max-height:400px;
+                overflow-y:auto;
+                white-space:pre-wrap;
+                word-break:break-all;
+              ">Load results to preview JSON</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /#results-section -->
+
+  </main>
+</div><!-- /#app -->
+
+<!-- Scripts -->
+<script src="/static/js/plots.js"></script>
+<script src="/static/js/alignment.js"></script>
+<script src="/static/js/dashboard.js"></script>
+
+<script>
+// Initialise slider value displays on load
+document.querySelectorAll('.live-slider').forEach(sl => {
+  const out = document.getElementById(sl.id + '-val');
+  if (out) out.textContent = sl.value;
+});
+</script>
+</body>
+</html>

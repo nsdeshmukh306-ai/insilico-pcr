@@ -1,0 +1,337 @@
+{
+  "run_info": {
+    "timestamp": "2026-05-07T15:07:47.336115Z",
+    "pipeline_version": "1.0.0",
+    "params": {
+      "max_mismatches": 3,
+      "min_amplicon_size": 50,
+      "max_amplicon_size": 3000,
+      "primer_conc_nM": 250.0,
+      "na_conc_mM": 50.0,
+      "seed_length": 8,
+      "three_prime_strict": true
+    },
+    "elapsed_seconds": 0.12
+  },
+  "primer_pairs": [
+    {
+      "name": "ACTB_exon5",
+      "forward_primer": {
+        "sequence": "GCACTGGTGGCATCGATCTA",
+        "length": 20,
+        "gc_fraction": 0.55,
+        "tm_celsius": 49.93,
+        "delta_g_37": -25.889,
+        "length_ok": true,
+        "gc_ok": true,
+        "tm_ok": false,
+        "gc_clamp_ok": true,
+        "max_run": 2,
+        "low_complexity": false
+      },
+      "reverse_primer": {
+        "sequence": "TAGCTAGCATGCTAGCTAGC",
+        "length": 20,
+        "gc_fraction": 0.5,
+        "tm_celsius": 46.66,
+        "delta_g_37": -24.34,
+        "length_ok": true,
+        "gc_ok": true,
+        "tm_ok": false,
+        "gc_clamp_ok": true,
+        "max_run": 1,
+        "low_complexity": false
+      },
+      "amplicons": [
+        {
+          "rank": 1,
+          "seq_id": "chr1",
+          "start": 500,
+          "end": 920,
+          "length": 420,
+          "gc_fraction": 0.488,
+          "sequence": "GCACTGGTGGCATCGATCTAACCACCCTACTGGCACGAAGTTCACAGAAGTGAGATTATGTCTCGTTTGGCAGTCTTGATGCTCGGGGGACACTTCTTTAAGCTCGGTGTGGTGGGCACGACCCTGGACGCGCGACGAAGCTAAGTTTGCAGTAATTAACCGACATCTTTGTGAACCGACCCACATTTGACGGTACGCTACCGCAACGGTATGTGTTAATGGAACAGACTTGCTTATGTGGACGTTGTATAGGGATATTACGTTACGCGTTAACCGATACATACTGGTTTCTCTCCAGTGGAGGTCTTGGTTGCCTCTAGTTTCTACGATATACTCATGGTAGTGTAACGCATAATCGAAGAGGGTCCTCCCATCTCCTGTGATGCATGGTGTGCTTACTGCTAGCTAGCATGCTAGCTA",
+          "is_intended": true,
+          "final_score": 35.05,
+          "off_target_count": 0,
+          "score_components": {
+            "s_bind": 1.0,
+            "s_tm": 0.0,
+            "s_gc": 1.0,
+            "p_mm": 1.0,
+            "p_offt": 0.0,
+            "s_len": 0.9077
+          },
+          "fwd_binding": {
+            "seq_id": "chr1",
+            "start": 500,
+            "end": 520,
+            "strand": "+",
+            "sw_score": 40.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GCACTGGTGGCATCGATCTA",
+            "tm_celsius": -208.43,
+            "delta_g_kcal": 15.8,
+            "gc_primer": 0.55,
+            "binding_score": 100.0
+          },
+          "rev_binding": {
+            "seq_id": "chr1",
+            "start": 900,
+            "end": 920,
+            "strand": "-",
+            "sw_score": 40.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GCTAGCTAGCATGCTAGCTA",
+            "tm_celsius": 692.64,
+            "delta_g_kcal": 12.151,
+            "gc_primer": 0.5,
+            "binding_score": 100.0
+          }
+        },
+        {
+          "rank": 2,
+          "seq_id": "chr1",
+          "start": 2000,
+          "end": 2370,
+          "length": 370,
+          "gc_fraction": 0.486,
+          "sequence": "GCACTGGTGGCATCGATCTACAGTAACCTCGGACCATCCTCGGTTGGGGTTATGCGGTACCAGTGCCGCTCTGGTTTCGCCTCAAAAATCCACACTGATTAATAAGGATCAACCCGGGTAGTTCCGAAATTTTAACATTGAACCTGAAGACGACCTAGCCTGTCAGAATCAGTGAGTTCGTTCTAGCAAGCTCTGGAAAGTGGACACTTTAAAGAGTAGTTACCTCCGGGTCACTGTGTAGGCTCTACGATGTGTGTCGGCTGCTGGTCGTGTGACCATCTGATTCGCGCTTATTTTAGAACGCATGTAAAGCCTGTTCGATAGTAACGGGTCTGTATTGAGAAAGACCCGCTAGCTAGCATGCTAGCTA",
+          "is_intended": false,
+          "final_score": 31.91,
+          "off_target_count": 2,
+          "score_components": {
+            "s_bind": 1.0,
+            "s_tm": 0.0,
+            "s_gc": 1.0,
+            "p_mm": 1.0,
+            "p_offt": 0.238,
+            "s_len": 0.9438
+          },
+          "fwd_binding": {
+            "seq_id": "chr1",
+            "start": 2000,
+            "end": 2020,
+            "strand": "+",
+            "sw_score": 40.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GCACTGGTGGCATCGATCTA",
+            "tm_celsius": -208.43,
+            "delta_g_kcal": 15.8,
+            "gc_primer": 0.55,
+            "binding_score": 100.0
+          },
+          "rev_binding": {
+            "seq_id": "chr1",
+            "start": 2350,
+            "end": 2370,
+            "strand": "-",
+            "sw_score": 40.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GCTAGCTAGCATGCTAGCTA",
+            "tm_celsius": 692.64,
+            "delta_g_kcal": 12.151,
+            "gc_primer": 0.5,
+            "binding_score": 100.0
+          }
+        },
+        {
+          "rank": 3,
+          "seq_id": "chr1",
+          "start": 500,
+          "end": 2370,
+          "length": 1870,
+          "gc_fraction": 0.497,
+          "sequence": "GCACTGGTGGCATCGATCTAACCACCCTACTGGCACGAAGTTCACAGAAGTGAGATTATGTCTCGTTTGGCAGTCTTGATGCTCGGGGGACACTTCTTTAAGCTCGGTGTGGTGGGCACGACCCTGGACGCGCGACGAAGCTAAGTTTGCAGTAATTAACCGACATCTTTGTGAACCGACCCACATTTGACGGTACGCTACCGCAACGGTATGTGTTAATGGAACAGACTTGCTTATGTGGACGTTGTATAGGGATATTACGTTACGCGTTAACCGATACATACTGGTTTCTCTCCAGTGGAGGTCTTGGTTGCCTCTAGTTTCTACGATATACTCATGGTAGTGTAACGCATAATCGAAGAGGGTCCTCCCATCTCCTGTGATGCATGGTGTGCTTACTGCTAGCTAGCATGCTAGCTAAGCAGGTCCCGGCGTGGATACCTGATAGATGGTGACTAGCATGTACAAGTAACCTTGTCTATTGAGCTTCGAGGATGCATACAAGCCCACCCGCAGCCGCAACAGCGACGACTAATTGATCAGTAATTTATTAAGCACGGTGTTAACTTCTGTTTAGTGGGCTAAAATAGCAGATGTAGGGACCTCAGGAGCTAGACGGGGACCTACAACTTTGCGGGAACCAAGTTTTTGCAGTAGTGACTAACGCCGGGAATTCCTCGATATATAGTTTGATAGCTGATACTTATGGCGCAACGGCCACGCCCACTTTGGCTATTGGAGAGTTAAGGAATTATCGTCATAGACACTTCGGGTTGAGAGATGGCGACGGTCAGTGCATGAGGCCGTCCCCAGAAGCTCCCCTATGCTGTCCGTCGTTGTTCCCGATGAAGACGTCTACTGATATGCTAGCAGAGCCAGTCTTAAAGCCTAGCGAACTTAATACCGTAGCTCAGAATTATGGAGAGCAGCAGGCTTCCATAGCACAGGTTGACGGAGGAGTTTTGCTTGGATATCGGAAGGGTTCTGTAGTGAATGCACTACACGGTACTGGTACGTGGCAACTTAGGTCGTCACATCTAGGAGGCCGCACCCTAGGTCAAGTTTTACGATTGCCCTAACGCCGCGGAGCGCGACCCGAAAAGCTATGGTCTGTAACTTTTCGCGGGTCGAGCTAGTCCAAGTTCCGGCCTTTGTAATTCCGAAGTTGAATCGGTGATACGGATTGACATGGGCCTAAACGTTCCGGCTGGTGTAGGATGATGCATCTCCAACATGTCTCTTACCGTTGCTGGGTCCGGCGGCTGTGGGATTGCGAGAGTGTCCGGCACCACCAATGTACACTTTCGGGAACACTCATTCGAAGAGGTTCTGCAGCTGCAGGCCTTGATACCTGCAGTCTGGGAGGCAATGCTGAGGCCCTCTGTTCCATGAAACCCGTACTATATCTTATGATGACAATGAAATAGTCCTGTTTTACGACTCCAAGTTTCCTGCGCAATACCAAATACATTCCACGCGGCGCCTGGACTTAGTGTTCGTGCACTGGTGGCATCGATCTACAGTAACCTCGGACCATCCTCGGTTGGGGTTATGCGGTACCAGTGCCGCTCTGGTTTCGCCTCAAAAATCCACACTGATTAATAAGGATCAACCCGGGTAGTTCCGAAATTTTAACATTGAACCTGAAGACGACCTAGCCTGTCAGAATCAGTGAGTTCGTTCTAGCAAGCTCTGGAAAGTGGACACTTTAAAGAGTAGTTACCTCCGGGTCACTGTGTAGGCTCTACGATGTGTGTCGGCTGCTGGTCGTGTGACCATCTGATTCGCGCTTATTTTAGAACGCATGTAAAGCCTGTTCGATAGTAACGGGTCTGTATTGAGAAAGACCCGCTAGCTAGCATGCTAGCTA",
+          "is_intended": false,
+          "final_score": 25.2,
+          "off_target_count": 2,
+          "score_components": {
+            "s_bind": 1.0,
+            "s_tm": 0.0,
+            "s_gc": 1.0,
+            "p_mm": 1.0,
+            "p_offt": 0.238,
+            "s_len": 0.0038
+          },
+          "fwd_binding": {
+            "seq_id": "chr1",
+            "start": 500,
+            "end": 520,
+            "strand": "+",
+            "sw_score": 40.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GCACTGGTGGCATCGATCTA",
+            "tm_celsius": -208.43,
+            "delta_g_kcal": 15.8,
+            "gc_primer": 0.55,
+            "binding_score": 100.0
+          },
+          "rev_binding": {
+            "seq_id": "chr1",
+            "start": 2350,
+            "end": 2370,
+            "strand": "-",
+            "sw_score": 40.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GCTAGCTAGCATGCTAGCTA",
+            "tm_celsius": 692.64,
+            "delta_g_kcal": 12.151,
+            "gc_primer": 0.5,
+            "binding_score": 100.0
+          }
+        }
+      ],
+      "offtarget_summary": {
+        "total": 2,
+        "high_risk": 0,
+        "medium_risk": 0,
+        "low_risk": 2,
+        "specificity_index": 90.48,
+        "hits": [
+          {
+            "seq_id": "chr1",
+            "start": 2000,
+            "end": 2370,
+            "size": 370,
+            "gc_fraction": 0.486,
+            "fwd_mm": 0,
+            "rev_mm": 0,
+            "fwd_tm": -208.43,
+            "rev_tm": 692.64,
+            "offtarget_score": 31.91,
+            "reasons": [
+              "unexpected_genomic_position"
+            ],
+            "sequence_preview": "GCACTGGTGGCATCGATCTACAGTAACCTCGGACCATCCTCGGTTGGGGTTATGCGGTACCAGTGCCGCTCTGGTTTCGC..."
+          },
+          {
+            "seq_id": "chr1",
+            "start": 500,
+            "end": 2370,
+            "size": 1870,
+            "gc_fraction": 0.497,
+            "fwd_mm": 0,
+            "rev_mm": 0,
+            "fwd_tm": -208.43,
+            "rev_tm": 692.64,
+            "offtarget_score": 25.2,
+            "reasons": [
+              "unexpected_genomic_position"
+            ],
+            "sequence_preview": "GCACTGGTGGCATCGATCTAACCACCCTACTGGCACGAAGTTCACAGAAGTGAGATTATGTCTCGTTTGGCAGTCTTGAT..."
+          }
+        ]
+      }
+    },
+    {
+      "name": "GAPDH_qPCR",
+      "forward_primer": {
+        "sequence": "GTCTCCTCTGACTTCAACAGCG",
+        "length": 22,
+        "gc_fraction": 0.545,
+        "tm_celsius": 50.67,
+        "delta_g_37": -28.061,
+        "length_ok": true,
+        "gc_ok": true,
+        "tm_ok": true,
+        "gc_clamp_ok": false,
+        "max_run": 2,
+        "low_complexity": false
+      },
+      "reverse_primer": {
+        "sequence": "ACCACCCTGTTGCTGTAGCCAA",
+        "length": 22,
+        "gc_fraction": 0.545,
+        "tm_celsius": 54.77,
+        "delta_g_37": -29.312,
+        "length_ok": true,
+        "gc_ok": true,
+        "tm_ok": true,
+        "gc_clamp_ok": true,
+        "max_run": 3,
+        "low_complexity": false
+      },
+      "amplicons": [
+        {
+          "rank": 1,
+          "seq_id": "chr2",
+          "start": 200,
+          "end": 522,
+          "length": 322,
+          "gc_fraction": 0.444,
+          "sequence": "GTCTCCTCTGACTTCAACAGCGAACTTCACTTTCTTTTGCCTATCGTGAATGATACGTAACTAGAGATTTGTGGGCAGGATCAGAGTACAGGCGGGAACCTGCGCTCAGACCTTTCTCCGAGAACTTTGTCTTTGCTAGTTGAAGTGGGGAGTTCCGCGAAAATAATGCGGCAAAACAAACTCACGGTATGTGGCAGATTGAGGCTATCTCTACTCATGAAAAGTATCAATGCGTATTTTACATTAGGGTAAGGATGCCATCGTAGTATCCACACTTAGTTAAGAGATACTCCAACTATATTGGCTACAGCAACAGGGTGGT",
+          "is_intended": true,
+          "final_score": 35.5,
+          "off_target_count": 0,
+          "score_components": {
+            "s_bind": 1.0,
+            "s_tm": 0.0,
+            "s_gc": 1.0,
+            "p_mm": 1.0,
+            "p_offt": 0.0,
+            "s_len": 0.9707
+          },
+          "fwd_binding": {
+            "seq_id": "chr2",
+            "start": 200,
+            "end": 222,
+            "strand": "+",
+            "sw_score": 44.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "GTCTCCTCTGACTTCAACAGCG",
+            "tm_celsius": -242.67,
+            "delta_g_kcal": 16.753,
+            "gc_primer": 0.545,
+            "binding_score": 100.0
+          },
+          "rev_binding": {
+            "seq_id": "chr2",
+            "start": 500,
+            "end": 522,
+            "strand": "-",
+            "sw_score": 44.0,
+            "mismatch_count": 0,
+            "mismatch_positions": [],
+            "gap_count": 0,
+            "three_prime_mm": false,
+            "aligned_template": "TTGGCTACAGCAACAGGGTGGT",
+            "tm_celsius": -144.33,
+            "delta_g_kcal": 4.426,
+            "gc_primer": 0.545,
+            "binding_score": 100.0
+          }
+        }
+      ],
+      "offtarget_summary": {
+        "total": 0,
+        "high_risk": 0,
+        "medium_risk": 0,
+        "low_risk": 0,
+        "specificity_index": 100.0,
+        "hits": []
+      }
+    }
+  ]
+}

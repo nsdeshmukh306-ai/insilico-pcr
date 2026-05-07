@@ -1,0 +1,8 @@
+genome_size_bp,index_type,index_build_ms,per_primer_search_ms,full_pair_ms,notes
+10000,kmer,0.4,8,63,example dataset
+100000,kmer,3,15,85,extrapolated
+1000000,kmer,22,35,120,extrapolated
+10000000,kmer,210,80,200,extrapolated — approaches FM-index threshold
+50000000,fm_index,1800,150,350,extrapolated — FM-index crossover
+100000000,fm_index,3200,200,450,extrapolated
+3000000000,fm_index,120000,5000,8000,extrapolated — human genome scale (v2.1 target)
