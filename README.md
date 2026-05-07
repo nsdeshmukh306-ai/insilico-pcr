@@ -41,13 +41,13 @@
 
 ---
 
-## ✨ Features
+##  Features
 
 <table>
 <tr>
 <td width="50%">
 
-### 🧬 Thermodynamics Engine
+###  Thermodynamics Engine
 - SantaLucia 1998 nearest-neighbor (NN) model
 - Full Peyret/Allawi mismatch NN tables (48 entries, all 12 mismatch types × 4 contexts)
 - Owczarzy 2008 Mg²⁺ salt correction with regime switching
@@ -57,7 +57,7 @@
 </td>
 <td width="50%">
 
-### 🔍 Genome Indexing
+###  Genome Indexing
 - FM-index (Burrows–Wheeler Transform) for ≥ 50 Mbp genomes
 - K-mer positional index for smaller sequences
 - Automatic backend selection based on genome size
@@ -68,7 +68,7 @@
 <tr>
 <td width="50%">
 
-### 📐 Alignment
+###  Alignment
 - Smith–Waterman local alignment for every primer–genome hit
 - Gap-tolerant alignment with configurable penalties
 - Per-position mismatch tracking for thermodynamic penalty computation
@@ -77,7 +77,7 @@
 </td>
 <td width="50%">
 
-### 📊 Scoring & Ranking
+###  Scoring & Ranking
 - ΔTm-driven mismatch penalty (not raw mismatch count)
 - Off-target log-scale penalisation
 - Composite score: binding affinity + Tm compatibility + GC + length + specificity
@@ -88,7 +88,7 @@
 <tr>
 <td width="50%">
 
-### 🎯 Off-target Analysis
+###  Off-target Analysis
 - All binding sites enumerated, not just the top hit
 - Specificity index per primer pair
 - Risk classification: high / medium / low
@@ -97,7 +97,7 @@
 </td>
 <td width="50%">
 
-### 🖥️ Interactive Dashboard
+###  Interactive Dashboard
 - FastAPI backend + Plotly.js frontend (light scientific theme)
 - Real-time parameter experiment panel with sliders
 - Nucleotide alignment viewer with mismatch highlighting
@@ -108,7 +108,7 @@
 <tr>
 <td width="50%">
 
-### 💊 Primer Quality
+###  Primer Quality
 - GC content, Tm, ΔG per primer
 - GC clamp check, low-complexity detection
 - Maximum homopolymer run length
@@ -117,7 +117,7 @@
 </td>
 <td width="50%">
 
-### 🔬 Research-Grade Output
+###  Research-Grade Output
 - Structured JSON output (machine-readable)
 - Human-readable text report
 - Fully documented Python API (`api.py`)
@@ -129,7 +129,7 @@
 
 ---
 
-## 🚀 Quickstart
+##  Quickstart
 
 ### 1. Install
 
@@ -186,7 +186,7 @@ python -m insilico_pcr.cli \
 
 ---
 
-## 🖥️ Interactive Dashboard
+##  Interactive Dashboard
 
 The dashboard provides a complete analysis environment in the browser — no coding required.
 
@@ -402,7 +402,7 @@ Figures regenerated with `python benchmarks/figures/generate_figures.py`.
 
 ---
 
-## ⚠️ Limitations
+##  Limitations
 
 | Limitation | Impact | Workaround |
 |---|---|---|
@@ -414,7 +414,7 @@ Figures regenerated with `python benchmarks/figures/generate_figures.py`.
 
 ---
 
-## 🗺️ Roadmap
+##  Roadmap
 
 | Version | Feature | Status |
 |---|---|---|
@@ -428,7 +428,7 @@ Figures regenerated with `python benchmarks/figures/generate_figures.py`.
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for:
 - Branch and commit conventions
@@ -476,7 +476,7 @@ If this platform is used in published research, please cite the underlying therm
 
 ---
 
-## 📄 License
+##  License
 
 MIT — see [LICENSE](LICENSE) for details. Free to use in academic and commercial projects.
 
